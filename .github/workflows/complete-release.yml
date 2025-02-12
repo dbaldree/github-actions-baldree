@@ -7,6 +7,7 @@ on:
 
 env:
   pr_version: ${{ github.event.number }}
+  tag_name: ${{ github.event.release.tag_name }}
 jobs:
   if_merged:
       if: github.event.pull_request.merged == true
@@ -20,11 +21,12 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ env.pr_version }}
-            release_name: Release ${{ env.pr_version }}
+            tag_name: ${{ env.tag_name }}
+            release_name: Release ${{ env.tag_name }}
             body: |
-              Changes in this Release
-              - First Change
-              - Second Change
+              PR: 
+              - #${{ env.pr_version }}
+              Changes in this Release:
+              - Hey I did something
             draft: false
             prerelease: false
