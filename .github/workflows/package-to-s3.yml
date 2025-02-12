@@ -1,9 +1,7 @@
 name: Upload artifacts
 
 on:
-  push:
-    branches:
-      - $GITHUB_REF
+  workflow_dispatch:
 
 env:
   dw_version: $GITHUB_REF
