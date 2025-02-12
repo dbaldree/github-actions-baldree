@@ -28,4 +28,4 @@ runs:
         INPUT_RELEASE: ${{ inputs.release }}
         INPUT_DIRECTORY: ${{ inputs.directory }}
         INPUT_EXCLUSIONS: ${{ inputs.exclusions }}
-      run: $GITHUB_ACTION_PATH/entrypoint.sh
+      run: $GITHUB_ACTION_PATH/archive.sh
