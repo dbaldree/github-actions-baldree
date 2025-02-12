@@ -16,7 +16,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
+        exclusions: '*.git* /*node_modules/* .editorconfig /actions/*'
   upload_artifact:
     name: Upload artifact to S3
     runs-on: ubuntu-latest
