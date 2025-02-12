@@ -2,27 +2,29 @@ name: Complete Release
 
 on:
   pull_request:
+    types:
+      - closed
 
 env:
   pr_version: ${{ github.event.number }}
 jobs:
-  complete_release:
-    if: github.event.pull_request.merged
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.pr_version }}
-          release_name: Release ${{ env.pr_version }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+  if_merged:
+      if: github.event.pull_request.merged == true
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ env.pr_version }}
+            release_name: Release ${{ env.pr_version }}
+            body: |
+              Changes in this Release
+              - First Change
+              - Second Change
+            draft: false
+            prerelease: false
