@@ -1,0 +1,20 @@
+---
+name: Truncate text
+description: Truncate text
+inputs:
+  text:
+    description: The text to truncate
+    required: true
+outputs:
+  truncated_text:
+    description: The truncated text
+    value: ${{ steps.git_step.outputs.truncated_text }}
+runs:
+  using: composite
+  steps:
+    - name: Truncate text
+      id: git_step
+      shell: bash
+      run: |
+        TRUNCATED_TEXT=$(echo "${{ inputs.text }}" | sed 's/[^a-zA-Z0-9]/-/g' | cut -c 1-64)
+        echo "truncated_text=$TRUNCATED_TEXT" >> $GITHUB_OUTPUT
