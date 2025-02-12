@@ -2,12 +2,12 @@ name: Complete Release
 
 on:
   pull_request:
-  workflow_dispatch:
 
 env:
   pr_version: ${{ github.event.number }}
 jobs:
   complete_release:
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,8 +18,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.pr_version }}
+          release_name: Release ${{ env.pr_version }}
           body: |
             Changes in this Release
             - First Change
