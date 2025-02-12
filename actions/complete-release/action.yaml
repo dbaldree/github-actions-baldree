@@ -14,8 +14,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Create a release
-      shell: bash
+    - shell: bash
       run: $GITHUB_ACTION_PATH/release.sh
       env:
         PR_VERSION: ${{ inputs.PR_VERSION }}
