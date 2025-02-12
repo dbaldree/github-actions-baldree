@@ -2,12 +2,14 @@ name: Complete Release
 
 on:
   pull_request:
+    types: [closed]
   workflow_dispatch:
 
 env:
   pr_version: ${{ github.event.number }}
 jobs:
   complete_release:
+    if: github.event.pull_request.merged == 'true'
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
