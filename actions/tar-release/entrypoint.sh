@@ -9,14 +9,14 @@ then
   if [ -d $INPUT_DIRECTORY ]; then
     echo "Directory exists."
   else
-    mkdir "$INPUT_DIRECTORY"
+    mkdir -p "$INPUT_DIRECTORY"
   fi
   cd "$INPUT_DIRECTORY"
 fi
 
 if [ -z "$INPUT_EXCLUSIONS" ] 
 then
-  tar -zcvf --warning=no-file-changed "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+  tar -zcvf "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
 else
   EXCLUSIONS=''
   for EXCLUSION in $INPUT_EXCLUSIONS
@@ -24,7 +24,7 @@ else
     EXCLUSIONS+=" --exclude="
     EXCLUSIONS+=$EXCLUSION
   done
-  tar $EXCLUSIONS -zcvf --warning=no-file-changed "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+  tar $EXCLUSIONS -zcvf "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
 fi
 
 printf "\n✔ Successfully created tarball archive.\n"
