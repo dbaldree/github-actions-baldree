@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
-env
+#env
+apt install -y git httpie curl
 DATA="$(printf '{"tag_name":"v%s",' $PR_VERSION)"
 DATA="${DATA} $(printf '"target_commitish":"master",')"
 DATA="${DATA} $(printf '"name":"v%s",' $PR_VERSION)"
