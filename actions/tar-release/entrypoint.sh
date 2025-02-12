@@ -6,6 +6,11 @@ printf "\n📦 Creating tarball archive...\n"
 
 if [ "$INPUT_DIRECTORY" != "." ] 
 then
+  if [ -d $INPUT_DIRECTORY ]; then
+    echo "Directory exists."
+  else
+    mkdir "$INPUT_DIRECTORY"
+  fi
   cd "$INPUT_DIRECTORY"
 fi
 
