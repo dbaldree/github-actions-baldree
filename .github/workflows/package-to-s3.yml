@@ -12,21 +12,19 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Archive Release
-      uses: dbaldree/github-actions-baldree/actions/tar-release@v0.0.4-rc1
+      uses: dbaldree/github-actions-baldree/actions/tar-release@v0.0.5-rc1
       with:
         type: 'zip'
-        filename: 'release.zip'
+        filename: 'cloud-cc-datawarehouse-postgres.tar.gz'
         exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md'
   upload_artifact:
     name: Upload artifact to S3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@v0.0.4-rc1
+      - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@v0.0.5-rc1
         with:
-          artifacts: |
-            target/my-artifact-*.jar
-            path/to/other-artifact-*.jar
+          artifacts: cloud-cc-datawarehouse-postgres.tar.gz
           s3_bucket: "baldrees-junk-bucket"
           s3_destination: "gitartifacts"
           aws_region: us-east-2

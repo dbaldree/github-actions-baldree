@@ -1,6 +1,6 @@
 #! /bin/bash
 # Create archive or exit if the command fails
-set -eu
+set +e
 
 printf "\n📦 Creating tarball archive...\n"
 
@@ -11,7 +11,7 @@ fi
 
 if [ -z "$INPUT_EXCLUSIONS" ] 
 then
-  tar -zcvf "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+  tar -zcvf --warning=no-file-changed "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
 else
   EXCLUSIONS=''
   for EXCLUSION in $INPUT_EXCLUSIONS
@@ -19,7 +19,7 @@ else
     EXCLUSIONS+=" --exclude="
     EXCLUSIONS+=$EXCLUSION
   done
-  tar $EXCLUSIONS -zcvf "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+  tar $EXCLUSIONS -zcvf --warning=no-file-changed "$INPUT_FILENAME" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
 fi
 
 printf "\n✔ Successfully created tarball archive.\n"
