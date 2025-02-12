@@ -18,6 +18,7 @@ jobs:
         filename: 'cloud-cc-datawarehouse-postgres.tar.gz'
         exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.tar.gz'
   upload_artifact:
+    needs: [build]
     name: Upload artifact to S3
     runs-on: ubuntu-latest
     steps:

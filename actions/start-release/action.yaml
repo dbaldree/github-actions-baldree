@@ -12,15 +12,6 @@ inputs:
     required: false
     default: ""
     description: Command to update release version
-  next_dev_version:
-    required: false
-    default: ""
-    description: Next development version
-  update_next_dev_version_command:
-    required: false
-    default: ""
-    description: Command to update next development version
-runs:
   using: composite
   steps:
     - name: Setup git
@@ -58,41 +49,5 @@ runs:
             repo: repo,
             head: 'release/${{ inputs.version }}',
             base: 'main',
-            body: '',
-          });
-    - name: Set next development version
-      if: inputs.next_dev_version != ''
-      shell: bash
-      run: echo "NEXT_DEV_VERSION=${{ inputs.next_dev_version }}" >> $GITHUB_ENV
-    - name: Create branch to update next development version
-      if: inputs.next_dev_version != ''
-      shell: bash
-      run: |
-        git checkout ${{ github.ref_name }}
-        git checkout -b feature/bump-version-${{ inputs.next_dev_version }}-${{ github.run_id }}
-    - name: Update next development version
-      if: inputs.update_next_dev_version_command != ''
-      shell: bash
-      run: ${{ inputs.update_next_dev_version_command }}
-    - name: Commit and push next development version
-      if: inputs.next_dev_version != ''
-      shell: bash
-      run: |
-        git add .
-        git commit --allow-empty -a -m "Bump version to ${{ inputs.next_dev_version }}"
-        git push -u origin feature/bump-version-${{ inputs.next_dev_version }}-${{ github.run_id }}
-    - name: Create PR to update next development version
-      if: inputs.next_dev_version != ''
-      uses: actions/github-script@v7
-      with:
-        github-token: ${{ inputs.github_token }}
-        script: |
-          const { repo, owner } = context.repo;
-          github.rest.pulls.create({
-            title: 'Bump version to ${{ inputs.next_dev_version }}',
-            owner: owner,
-            repo: repo,
-            head: 'feature/bump-version-${{ inputs.next_dev_version }}-${{ github.run_id }}',
-            base: '${{ github.ref_name }}',
             body: '',
           });
