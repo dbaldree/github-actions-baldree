@@ -1,0 +1,26 @@
+name: 'Tarball Release'
+branding:
+  icon: 'archive'
+  color: 'yellow'
+description: 'Make a tarball archive from specified files and directories as workflow action'
+inputs:
+  filename:
+    description: 'Filename for archive'
+    required: true
+    default: 'cloud-cc-datawarehouse-postgres.tar.gz'
+  directory:
+    description: 'Working directory before tar'
+    required: true
+  exclusions:
+    description: 'List of excluded files / directories'
+    default: ''
+    required: false
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        INPUT_FILENAME: ${{ inputs.filename }}
+        INPUT_DIRECTORY: ${{ inputs.directory }}
+        INPUT_EXCLUSIONS: ${{ inputs.exclusions }}
+      run: $GITHUB_ACTION_PATH/entrypoint.sh
