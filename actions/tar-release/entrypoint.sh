@@ -11,8 +11,10 @@ then
   else
     mkdir -p "$INPUT_DIRECTORY"
   fi
-  cd "$INPUT_DIRECTORY"
 fi
+
+cd "$INPUT_DIRECTORY"
+touch "$INPUT_FILENAME"
 
 if [ -z "$INPUT_EXCLUSIONS" ] 
 then
