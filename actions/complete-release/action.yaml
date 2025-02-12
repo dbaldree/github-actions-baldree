@@ -11,12 +11,12 @@ inputs:
     required: true
     description: GIT Token
 runs:
-    - shell: bash
-      run: $GITHUB_ACTION_PATH/merge.sh
-      env:
-        PR_VERSION: ${{ inputs.PR_VERSION }}
-        GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+  - shell: bash
+    run: $GITHUB_ACTION_PATH/merge.sh
+    env:
+      PR_VERSION: ${{ inputs.PR_VERSION }}
+      GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
+      GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
 branding:
    icon: 'gift'
    color: 'blue'
