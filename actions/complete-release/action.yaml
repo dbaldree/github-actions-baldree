@@ -23,4 +23,4 @@ runs:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
 branding:
    icon: 'gift'
-   color: 'blue'
+   color: 'blue' 
