@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.5
+      uses: dbaldree/github-actions-baldree/actions/tar-release@0.0.1
       with:
         type: 'zip'
         filename: 'release.zip'
@@ -24,14 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: advarra-engineering/action-advarra-workflows/actions/upload-artifacts-to-s3@v1
+      - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@0.0.1
         with:
           artifacts: |
             target/my-artifact-*.jar
             path/to/other-artifact-*.jar
-          s3_bucket: "${{ vars.CLOUD_DEV_ARTIFACTS_BUCKET }}"
-          s3_destination: "${{ env.dw_version }}"
+          s3_bucket: "baldrees-junk-bucket"
+          s3_destination: "gitartifacts"
           aws_region: us-east-2
-          aws_role_to_assume: ${{ secrets.CLOUD_DEV_PUBLISH_ROLE_TO_ASSUME }}
+          aws_role_to_assume: "none"
           aws_role_session_name: "${{ github.repository }}-${{ github.workflow }}-${{ github.run_id }}"
           aws_role_duration_seconds: 900

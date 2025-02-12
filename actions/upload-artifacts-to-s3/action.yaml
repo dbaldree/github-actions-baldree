@@ -8,11 +8,11 @@ inputs:
   s3_bucket:
     description: The S3 bucket to upload the artifacts to
     required: false
-    default: engineering-devops-us-east-2-advarra-artifacts
+    default: baldrees-junk-bucket
   s3_destination:
     description: The S3 destination to upload the artifacts to
     required: false
-    default: forte
+    default: gitartifacts
   aws_region:
     description: The AWS region to use
     required: false
@@ -31,7 +31,7 @@ runs:
   using: composite
   steps:
     - name: Escape AWS Role Session Name
-      uses: advarra-engineering/action-advarra-workflows/actions/truncate-text@v1
+      uses: dbaldree/github-actions-baldree/actions/truncate-text@0.0.1
       id: escape_input
       with:
         text: "${{ inputs.aws_role_session_name }}"

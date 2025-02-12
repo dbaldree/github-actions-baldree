@@ -18,11 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ADVARRA_ENGINEERING_ORG_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       # other steps, like java setup
-      - uses: advarra-engineering/action-advarra-workflows/actions/start-release@v1
+      - uses: dbaldree/github-actions-baldree/actions/start-release@0.0.1
         with:
-          github_token: ${{ secrets.ADVARRA_ENGINEERING_ORG_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ inputs.version }}
           update_version_command: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$VERSION
           # The following (updating next development version) is optional.
