@@ -12,6 +12,7 @@ inputs:
     required: false
     default: ""
     description: Command to update release version
+runs:
   using: composite
   steps:
     - name: Setup git
