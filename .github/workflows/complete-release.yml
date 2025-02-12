@@ -15,14 +15,17 @@ jobs:
       steps:
         - name: Checkout code
           uses: actions/checkout@v4
+        - name: Set tag var
+          id: vars
+          run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_TAG
         - name: Create Release
           id: create_release
           uses: actions/create-release@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ env.tag_name }}
-            release_name: Release ${{ env.tag_name }}
+            tag_name: ${{ steps.vars.outputs.tag }}
+            release_name: Release ${{ steps.vars.outputs.tag }}
             body: |
               PR: 
               - #${{ env.pr_version }}
