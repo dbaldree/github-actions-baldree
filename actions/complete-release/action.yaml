@@ -1,0 +1,22 @@
+name: 'Complete Release'
+description: 'Creates releases from a merged PR'
+inputs:
+  PR_VERSION:
+    required: true
+    description: Pull Request version
+  GITHUB_REPOSITORY:             
+    required: true
+    description: GIT Repo
+  GITHUB_TOKEN:
+    required: true
+    description: GIT Token
+runs:
+    - shell: bash
+      run: $GITHUB_ACTION_PATH/merge.sh
+      env:
+        PR_VERSION: ${{ inputs.PR_VERSION }}
+        GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+branding:
+   icon: 'gift'
+   color: 'blue'
