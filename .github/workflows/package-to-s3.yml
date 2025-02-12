@@ -14,7 +14,7 @@ jobs:
     - name: Archive Release
       uses: dbaldree/github-actions-baldree/actions/tar-release@v0.0.9-rc1
       with:
-        directory: './artefacts'
+        directory: '.'
         filename: 'cloud-cc-datawarehouse-postgres.tar.gz'
         exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.tar.gz'
   upload_artifact:
