@@ -11,15 +11,19 @@ inputs:
   GITHUB_TOKEN:
     required: true
     description: GIT Token
-runs:
-  using: composite
-  steps:
-    - shell: bash
-      run: $GITHUB_ACTION_PATH/release.sh
-      env:
-        PR_VERSION: ${{ inputs.PR_VERSION }}
-        GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
-        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - shell: bash
+        run: $GITHUB_ACTION_PATH/release.sh
+        env:
+          PR_VERSION: ${{ inputs.PR_VERSION }}
+          GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
+          GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
 branding:
    icon: 'gift'
    color: 'blue' 
