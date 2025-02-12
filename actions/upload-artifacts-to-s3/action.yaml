@@ -1,0 +1,50 @@
+---
+name: upload-artifacts-to-s3
+description: Upload artifacts to s3
+inputs:
+  artifacts:
+    description: The artifacts to upload
+    required: true
+  s3_bucket:
+    description: The S3 bucket to upload the artifacts to
+    required: false
+    default: engineering-devops-us-east-2-advarra-artifacts
+  s3_destination:
+    description: The S3 destination to upload the artifacts to
+    required: false
+    default: forte
+  aws_region:
+    description: The AWS region to use
+    required: false
+    default: us-east-2
+  aws_role_to_assume:
+    description: The AWS role to assume
+    required: true
+  aws_role_session_name:
+    description: The AWS role session name
+    required: true
+  aws_role_duration_seconds:
+    description: The duration in seconds for the assumed role
+    required: false
+    default: "3600"
+runs:
+  using: composite
+  steps:
+    - name: Escape AWS Role Session Name
+      uses: advarra-engineering/action-advarra-workflows/actions/truncate-text@v1
+      id: escape_input
+      with:
+        text: "${{ inputs.aws_role_session_name }}"
+    - name: Configure AWS Credentials Using Role To Assume
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ inputs.aws_role_to_assume }}
+        role-session-name: ${{ steps.escape_input.outputs.truncated_text }}
+        role-duration-seconds: ${{ inputs.aws_role_duration_seconds }}
+        aws-region: ${{ inputs.aws_region }}
+    - shell: bash
+      run: $GITHUB_ACTION_PATH/upload.sh
+      env:
+        ARTIFACTS: ${{ inputs.artifacts }}
+        S3_BUCKET: ${{ inputs.s3_bucket }}
+        S3_DESTINATION: ${{ inputs.s3_destination }}
