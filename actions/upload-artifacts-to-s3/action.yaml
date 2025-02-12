@@ -31,7 +31,7 @@ runs:
   using: composite
   steps:
     - name: Escape AWS Role Session Name
-      uses: dbaldree/github-actions-baldree/actions/truncate-text@v0.1.3-rc1
+      uses: dbaldree/github-actions-baldree/actions/truncate-text@v0.1.4-rc1
       id: escape_input
       with:
         text: "${{ inputs.aws_role_session_name }}"
