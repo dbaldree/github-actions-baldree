@@ -18,4 +18,4 @@ jobs:
           with:
             PR_VERSION: ${{ env.pr_version }}
             GITHUB_REPOSITORY: ${{ secrets.GITHUB_PATH }}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
