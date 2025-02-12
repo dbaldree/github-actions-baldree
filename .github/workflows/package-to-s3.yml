@@ -15,8 +15,9 @@ jobs:
       uses: dbaldree/github-actions-baldree/actions/tar-release@v0.1.0-rc1
       with:
         directory: '.'
-        filename: 'cloud-cc-datawarehouse-postgres.tar.gz'
-        exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.tar.gz'
+        filename: 'cloud-cc-datawarehouse-postgres.${{ env.dw_version}}.tar.gz'
+        exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.${{ env.dw_version}}.tar.gz'
+        release: '${{ env.dw_version}}'
   upload_artifact:
     needs: [build]
     name: Upload artifact to S3

@@ -15,12 +15,17 @@ inputs:
     description: 'List of excluded files / directories'
     default: ''
     required: false
+  release:
+    description: 'Git release'
+    default: 'v1.0.0'
+    required: true
 runs:
   using: composite
   steps:
     - shell: bash
       env:
         INPUT_FILENAME: ${{ inputs.filename }}
+        INPUT_RELEASE: ${{ inputs.release }}
         INPUT_DIRECTORY: ${{ inputs.directory }}
         INPUT_EXCLUSIONS: ${{ inputs.exclusions }}
       run: $GITHUB_ACTION_PATH/entrypoint.sh
