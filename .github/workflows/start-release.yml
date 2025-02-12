@@ -7,11 +7,6 @@ on:
         type: string
         required: true
         description: "Version of new Release"
-      next_dev_version:
-        type: string
-        required: false
-        description: "Next development version"
-
 jobs:
   start_release:
     runs-on: ubuntu-latest
@@ -19,12 +14,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      # other steps, like java setup
       - uses: dbaldree/github-actions-baldree/actions/start-release@0.0.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ inputs.version }}
           update_version_command: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$VERSION
-          # The following (updating next development version) is optional.
-          next_dev_version: ${{ inputs.next_dev_version }}
-          update_next_dev_version_command: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$NEXT_DEV_VERSION
