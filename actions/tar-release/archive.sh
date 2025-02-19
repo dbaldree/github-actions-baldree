@@ -15,9 +15,7 @@ fi
 
 cd "$INPUT_DIRECTORY"
 touch "$INPUT_FILENAME"
-printf "\n$INPUT_DIRECTORY"
-printf "\n$INPUT_FILENAME"
-printf "\ntar -zcvf $INPUT_FILENAME.$INPUT_RELEASE ."
+
 if [ -z "$INPUT_EXCLUSIONS" ] 
 then
   tar -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
