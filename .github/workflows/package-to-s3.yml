@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Archive Release
-      uses: dbaldree/github-actions-baldree/actions/tar-release
+      uses: dbaldree/github-actions-baldree/actions/tar-release@main
       with:
         directory: '.'
         filename: 'cloud-cc-datawarehouse-postgres.${{ env.dw_version}}.tar.gz'
