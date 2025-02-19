@@ -18,20 +18,20 @@ jobs:
         - name: Set output
           id: vars
           run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        - name: Print TAG
+        - name: Print PR Tag
           run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
-        - name : Print ENV
+        - name : Print PR Title
           run: echo "PR is ${{ github.event.pull_request.title }}"
-        - name : Print Title of PR
-          run: echo "GITHUB_ENV is ${{ GITHUB_ENV }}"
         - name: Create Release
           id: create_release
           uses: actions/create-release@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: ${{ steps.vars.outputs.tag }}
-            release_name: ${{ steps.vars.outputs.tag }}
+            #tag_name: ${{ steps.vars.outputs.tag }}
+            #release_name: ${{ steps.vars.outputs.tag }}
+            tag_name: ${{ github.event.pull_request.title }}
+            release_name: "${{ github.event.pull_request.title }}-v0.${{ env.pr_version }}"
             body: |
               PR: 
               - #${{ env.pr_version }}
