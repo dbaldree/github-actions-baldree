@@ -17,8 +17,8 @@ cd "$INPUT_DIRECTORY"
 touch "$INPUT_FILENAME"
 
 if [ -z "$INPUT_EXCLUSIONS" ] 
-then
-  tar -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+then  
+  tar -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n";printf "\ntar -zcvf \"$INPUT_FILENAME.$INPUT_RELEASE\" .\n"; exit 1;}
 else
   EXCLUSIONS=""
   for EXCLUSION in $INPUT_EXCLUSIONS
@@ -26,7 +26,7 @@ else
     EXCLUSIONS+=" --exclude="
     EXCLUSIONS+=$EXCLUSION
   done
-  tar $EXCLUSIONS -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
+  tar $EXCLUSIONS -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n";printf "\ntar $EXCLUSIONS -zcvf \"$INPUT_FILENAME.$INPUT_RELEASE\" .\n"; exit 1;}
 fi
 
 printf "\n✔ Successfully created tarball archive.\n"
