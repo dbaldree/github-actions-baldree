@@ -3,9 +3,6 @@ name: Upload artifacts
 on:
   workflow_dispatch:
 
-#env:
-#  dw_version: ${{ github.ref }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,16 +17,18 @@ jobs:
         directory: '.'
         filename: 'cloud-cc-datawarehouse-postgres.${{ steps.vars.outputs.tag }}.tar.gz'
         exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.${{ steps.vars.outputs.tag }}.tar.gz'
-        release: '${{ steps.vars.outputs.tag }}'
   upload_artifact:
     needs: [build]
     name: Upload artifact to S3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set output
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@main
         with:
-          artifacts: cloud-cc-datawarehouse-postgres.tar.gz
+          artifacts: "cloud-cc-datawarehouse-postgres.${{ steps.vars.outputs.tag }}.tar.gz"
           s3_bucket: "baldrees-junk-bucket"
           s3_destination: "gitartifacts"
           aws_region: us-east-2
