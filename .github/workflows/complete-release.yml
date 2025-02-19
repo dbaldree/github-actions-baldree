@@ -31,7 +31,7 @@ jobs:
             #tag_name: ${{ steps.vars.outputs.tag }}
             #release_name: ${{ steps.vars.outputs.tag }}
             tag_name: ${{ github.event.pull_request.title }}
-            release_name: "${{ github.event.pull_request.title }}-v0.${{ env.pr_version }}"
+            release_name: "v${{ github.event.pull_request.title }}-rc1"
             body: |
               PR: 
               - #${{ env.pr_version }}
