@@ -18,8 +18,12 @@ jobs:
         - name: Set output
           id: vars
           run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-        - name: Set output
+        - name: Print TAG
           run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
+        - name : Print ENV
+          run: echo "PR is ${{ github.event.pull_request.title }}"
+        - name : Print Title of PR
+          run: echo "GITHUB_ENV is ${{ GITHUB_ENV }}"
         - name: Create Release
           id: create_release
           uses: actions/create-release@v1
