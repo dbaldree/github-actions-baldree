@@ -3,21 +3,24 @@ name: Upload artifacts
 on:
   workflow_dispatch:
 
-env:
-  dw_version: ${{ github.ref }}
+#env:
+#  dw_version: ${{ github.ref }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Set output
+      id: vars
+      run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
     - name: Archive Release
       uses: dbaldree/github-actions-baldree/actions/tar-release@main
       with:
         directory: '.'
-        filename: 'cloud-cc-datawarehouse-postgres.${{ env.dw_version}}.tar.gz'
-        exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.${{ env.dw_version}}.tar.gz'
-        release: '${{ env.dw_version}}'
+        filename: 'cloud-cc-datawarehouse-postgres.${{ steps.vars.outputs.tag }}.tar.gz'
+        exclusions: '*.git* /*node_modules/* .editorconfig *actions* README.md cloud-cc-datawarehouse-postgres.${{ steps.vars.outputs.tag }}.tar.gz'
+        release: '${{ steps.vars.outputs.tag }}'
   upload_artifact:
     needs: [build]
     name: Upload artifact to S3
