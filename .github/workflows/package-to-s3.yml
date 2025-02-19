@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@v0.2.4-rc1
+      - uses: dbaldree/github-actions-baldree/actions/upload-artifacts-to-s3@main
         with:
           artifacts: cloud-cc-datawarehouse-postgres.tar.gz
           s3_bucket: "baldrees-junk-bucket"
