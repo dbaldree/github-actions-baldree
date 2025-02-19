@@ -20,7 +20,7 @@ if [ -z "$INPUT_EXCLUSIONS" ]
 then
   tar -zcvf "$INPUT_FILENAME.$INPUT_RELEASE" . || { printf "\n⛔ Unable to create %s archive.\n"; exit 1;}
 else
-  EXCLUSIONS=''
+  EXCLUSIONS="$INPUT_FILENAME"
   for EXCLUSION in $INPUT_EXCLUSIONS
   do
     EXCLUSIONS+=" --exclude="
